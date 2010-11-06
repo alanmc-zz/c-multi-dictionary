@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/!svn/ver/2018/src/shared/framework/ServiceCore/mainline/encoding/common
+END
+input_stream.h
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/!svn/ver/776/src/shared/framework/ServiceCore/mainline/encoding/common/input_stream.h
+END
+string_input_stream.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/!svn/ver/2018/src/shared/framework/ServiceCore/mainline/encoding/common/string_input_stream.cpp
+END
+zlibdec.h
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/!svn/ver/2018/src/shared/framework/ServiceCore/mainline/encoding/common/zlibdec.h
+END
+wrappers.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/!svn/ver/776/src/shared/framework/ServiceCore/mainline/encoding/common/wrappers.cpp
+END
+string_input_stream.h
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/!svn/ver/1789/src/shared/framework/ServiceCore/mainline/encoding/common/string_input_stream.h
+END
+SConscript
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/!svn/ver/776/src/shared/framework/ServiceCore/mainline/encoding/common/SConscript
+END
+exceptions.h
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/!svn/ver/776/src/shared/framework/ServiceCore/mainline/encoding/common/exceptions.h
+END
+wrappers.h
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/!svn/ver/776/src/shared/framework/ServiceCore/mainline/encoding/common/wrappers.h
+END
+zlibdec.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/!svn/ver/2018/src/shared/framework/ServiceCore/mainline/encoding/common/zlibdec.cpp
+END

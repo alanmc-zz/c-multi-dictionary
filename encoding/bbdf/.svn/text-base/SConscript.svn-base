@@ -1,0 +1,9 @@
+Import('env')
+objs = []	
+include = []
+objs.append( env.SharedObject('bbdf_encoder.cpp') )
+objs.append( env.SharedObject('bbdf_decoder.cpp') )
+include.append(File('bbdf_encoder.h'))
+include.append(File('bbdf_decoder.h'))
+
+Return('objs', 'include')

@@ -1,0 +1,7 @@
+Import('env')
+objs = []	
+include = []
+objs.append( env.SharedObject('HessianMsg.cpp') )
+include.append(File('HessianMsg.h'))
+
+Return('objs', 'include')

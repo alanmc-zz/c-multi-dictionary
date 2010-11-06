@@ -1,0 +1,23 @@
+Import('env')
+
+(BBDF_OBJ,BBDF_INCLUDE) = SConscript('bbdf/SConscript')
+(COMMON_OBJ,COMMON_INCLUDE) = SConscript('common/SConscript')
+(HESSIAN_MSG_OBJ,HESSIAN_MSG_INCLUDE) = SConscript('hessianMsg/SConscript')
+PYTHON_LIB = SConscript('python/SConscript')
+
+objs = []
+bbdf_include = []
+common_include = []
+hessian_include = []
+libs = []
+
+objs.append( BBDF_OBJ )
+objs.append( COMMON_OBJ )
+objs.append( HESSIAN_MSG_OBJ )
+
+bbdf_include.append(BBDF_INCLUDE)
+common_include.append(COMMON_INCLUDE)
+hessian_include.append(HESSIAN_MSG_INCLUDE)
+
+libs.append(PYTHON_LIB)
+Return('objs', 'bbdf_include', 'common_include', 'hessian_include', 'libs')

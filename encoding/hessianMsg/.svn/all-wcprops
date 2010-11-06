@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/!svn/ver/3379/src/shared/framework/ServiceCore/mainline/encoding/hessianMsg
+END
+HessianMsg.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/!svn/ver/3379/src/shared/framework/ServiceCore/mainline/encoding/hessianMsg/HessianMsg.cpp
+END
+HessianMsg.h
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/!svn/ver/3379/src/shared/framework/ServiceCore/mainline/encoding/hessianMsg/HessianMsg.h
+END
+SConscript
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/!svn/ver/776/src/shared/framework/ServiceCore/mainline/encoding/hessianMsg/SConscript
+END

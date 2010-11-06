@@ -1,0 +1,288 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <hash_map>
+
+#include "encoding/hessianMsg/HessianMsg.h"
+#include "encoding/common/wrappers.h"
+#include "encoding/common/string_input_stream.h"
+#include "encoding/bbdf/bbdf_decoder.h"
+#include "encoding/bbdf/bbdf_encoder.h"
+
+using namespace std;
+using namespace BBDF::wrappers;
+using namespace BBDF;
+
+namespace BBDF {
+
+//   bool HessianMsg::insert_int64_t(const std::string& key, int64_t value)
+//   {
+//     (*values_).insert(key, new Integer(value));
+//     return true;
+//   }
+  
+
+//   bool HessianMsg::insert_uint64t(const std::string& key, uint64_t value)
+//   {
+//     (*values_).insert(key, new Integer(value));
+//     return true;
+//   }
+  
+
+  
+  bool HessianMsg::insert_int32_t(const std::string& key, int32_t value) 
+  {
+    boost::shared_ptr<Object> obj(new Integer(value));
+    (*values_)[key] = obj;
+    return true;
+  }
+  
+  bool HessianMsg::insert_uint32_t(const std::string& key, uint32_t value)
+  {
+    boost::shared_ptr<Object> obj(new UnsignedInteger(value));
+    (*values_)[key] = obj;
+    return true;
+  }
+
+  bool HessianMsg::insert_boolean(const std::string& key, bool value)
+  {
+    boost::shared_ptr<Object> obj(new Boolean(value));
+    (*values_)[key] = obj;
+    return true;
+  }
+  
+  bool HessianMsg::insert_date(const std::string& key, time_t date)
+  {
+    boost::shared_ptr<Object> obj(new Date(date));
+    (*values_)[key] = obj;
+    return true;
+  }
+  
+  bool HessianMsg::insert_string(const std::string& key, std::string& value)
+  {
+    boost::shared_ptr<Object> obj(new String(value));
+    (*values_)[key] = obj;
+    return true;
+  }
+  
+  bool HessianMsg::insert_string(const std::string& key, const char* value)
+  {
+    boost::shared_ptr<Object> obj(new String(value));
+    (*values_)[key] = obj;
+    return true;
+  }
+  
+  bool HessianMsg::insert_null(const std::string& key)
+  {
+    boost::shared_ptr<Object> obj(new Null());
+    (*values_)[key] = obj;
+    return true;
+  }
+  
+  bool HessianMsg::insert_vector(const std::string& key, VectorType& value)
+  {
+    boost::shared_ptr<Object> obj(new Vector(value));
+    (*values_)[key] = obj;
+    return true;
+  }
+  
+  boost::shared_ptr<MapType> HessianMsg::values(void) 
+  {
+    return values_;
+  }
+  
+  bool HessianMsg::insert_map(const std::string& key, MapType& value)
+  {
+    boost::shared_ptr<Object> obj(new Map(value));
+    (*values_)[key] = obj;
+    return true;
+  }
+  
+  bool HessianMsg::insert_msg(const std::string& key, boost::shared_ptr<HessianMsg> value)
+  {
+    boost::shared_ptr<Object> obj(new Map(((*(*value).values()))));
+    (*values_)[key] = obj;
+    return true;
+  }
+    
+  bool HessianMsg::get_int32_t(const std::string& key, int32_t& value) 
+  {
+    MapTypeIterator result = (*values_).find(key);
+    
+    if ( result == (*values_).end() ) {
+      return false;
+    }
+    
+    boost::shared_ptr<Object> obj = result->second;
+    
+    if ( obj->classname() != "Integer" ) {
+      return false;
+    }
+    
+    boost::shared_ptr<Integer> record = boost::dynamic_pointer_cast<Integer>(result->second);
+    
+    value = record->value();
+    return true;
+    
+  }
+  
+  bool HessianMsg::get_uint32_t(const std::string& key, uint32_t& value) 
+  {
+    MapTypeIterator result = (*values_).find(key);
+    
+    if ( result == (*values_).end() ) {
+      return false;
+    }
+    
+    boost::shared_ptr<Object> obj = result->second;
+    
+    if ( obj->classname() != "UnsignedInteger" ) {
+      return false;
+    }
+    
+    boost::shared_ptr<UnsignedInteger> record = boost::dynamic_pointer_cast<UnsignedInteger>(result->second);
+    value = record->value();
+    return true;
+  
+  }
+  
+  bool HessianMsg::get_boolean(const std::string& key, bool& value)
+  {
+    
+    MapTypeIterator result = (*values_).find(key);
+    
+    if ( result == (*values_).end() ) {
+      return false;
+    }
+    
+    boost::shared_ptr<Object> obj = result->second;
+    
+    if ( obj->classname() != "Boolean" ) {
+      return false;
+    }
+    
+    boost::shared_ptr<Boolean> record = boost::dynamic_pointer_cast<Boolean>(result->second);
+    value = record->value();
+    return true;
+    
+  }
+  
+  bool HessianMsg::get_date(const std::string& key, time_t& value)
+  {
+
+    MapTypeIterator result = (*values_).find(key);
+    
+    if ( result == (*values_).end() ) {
+      return false;
+    }
+    
+    boost::shared_ptr<Object> obj = result->second;
+    
+    if ( obj->classname() != "Date" ) {
+      return false;
+    }
+    
+    boost::shared_ptr<Date> record = boost::dynamic_pointer_cast<Date>(result->second);
+
+    value = record->value();
+    return true;
+
+  }
+  
+  bool HessianMsg::get_string(const std::string& key, std::string& value)
+  {
+  
+    MapTypeIterator result = (*values_).find(key);
+    
+    if ( result == (*values_).end() ) {
+      return false;
+    }
+    
+    boost::shared_ptr<Object> obj = result->second;
+
+    if ( obj->classname() != "String" ) {
+      return false;
+    }
+    
+    boost::shared_ptr<String> record = boost::dynamic_pointer_cast<String>(result->second);
+    
+    value = record->value();
+    return true;
+  
+  }
+  
+  bool HessianMsg::get_map(const std::string& key, MapType& value)
+  {
+    
+    MapTypeIterator result = (*values_).find(key);
+    
+    if ( result == (*values_).end() ) {
+      return false;
+    }
+    
+    boost::shared_ptr<Object> obj = result->second;
+    
+    if ( obj->classname() != "Map" ) {
+      return false;
+    }
+    
+    boost::shared_ptr<Map> record = boost::dynamic_pointer_cast<Map>(obj);
+    
+    value = record->value();
+    return true;
+    
+  }
+
+  bool HessianMsg::get_vector(const std::string& key, VectorType& value)
+  {
+    
+    MapTypeIterator result = (*values_).find(key);
+    
+    if ( result == (*values_).end() ) {
+      return false;
+    }
+    
+    boost::shared_ptr<Object> obj = result->second;
+    
+    if ( obj->classname() != "Vector" ) {
+      return false;
+    }
+
+    boost::shared_ptr<Vector> record = boost::dynamic_pointer_cast<Vector>(result->second);
+    
+    value = record->value();
+    return true;
+    
+  }
+  
+  bool HessianMsg::get_msg(const std::string& key, boost::shared_ptr<HessianMsg>& value)
+  {
+    boost::shared_ptr<MapType> map(new MapType());
+    
+    bool rval = get_map(key, *map);
+    
+    if ( !rval ) {
+      return false;
+    }
+
+    boost::shared_ptr<HessianMsg> msg(new HessianMsg(map));
+    value = msg;
+    return true;
+    
+  }
+  
+  void HessianMsg::decode(Bytes bytes, std::size_t len) {
+    boost::shared_ptr<BBDF::string_input_stream> is(new BBDF::string_input_stream(bytes, len));
+    BBDF::bbdf_decoder decoder(is);
+    MapType msg = decoder.decode();
+    (*values_) = msg;
+  }
+  
+  bytes_t HessianMsg::encode() {
+    BBDF::bbdf_encoder encoder;
+    boost::shared_ptr<Map> map(new Map((*values_)));
+    bytes_t bytes = encoder.encode(map);
+    return bytes;
+  }
+  
+} // namespace BBDF

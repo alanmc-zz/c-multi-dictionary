@@ -1,0 +1,9 @@
+Import('env')
+objs = []	
+include = []
+
+objs.append( env.SharedObject('Datagram.cpp') )
+
+include.append(File('Datagram.h'))
+
+Return('objs', 'include')

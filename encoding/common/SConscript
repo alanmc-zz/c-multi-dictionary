@@ -1,0 +1,14 @@
+Import('env')
+objs = []	
+include = []
+objs.append( env.SharedObject('wrappers.cpp') )
+objs.append( env.SharedObject('zlibdec.cpp') )
+objs.append( env.SharedObject('string_input_stream.cpp') )
+
+include.append(File('wrappers.h'))
+include.append(File('zlibdec.h'))
+include.append(File('string_input_stream.h'))
+include.append(File('input_stream.h'))
+include.append(File('exceptions.h'))
+
+Return('objs', 'include')
